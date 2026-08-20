@@ -629,10 +629,18 @@ function cssVar(name){ return getComputedStyle(document.body).getPropertyValue(n
 // DONUT CHART: spend split
 function renderDonut(){
   const el = document.getElementById('donutChart');
-  const data = [
-    {label:'Meta Ads', value:9292.19, color: cssVar('--meta-c')},
-    {label:'Google Ads', value:2412.80, color: cssVar('--google-c')}
-  ];
+  const metaSpend = supabaseData
+    .filter(row => row.platform?.toLowerCase().includes('meta'))
+    .reduce((total, row) => total + Number(row.spend || 0), 0);
+
+const googleSpend = supabaseData
+    .filter(row => row.platform?.toLowerCase().includes('google'))
+    .reduce((total, row) => total + Number(row.spend || 0), 0);
+
+const data = [
+    {label:'Meta Ads', value:metaSpend, color:cssVar('--meta-c')},
+    {label:'Google Ads', value:googleSpend, color:cssVar('--google-c')}
+];
   const total = data.reduce((a,d)=>a+d.value,0);
   const cx=110, cy=110, r=78, rInner=48;
   let angle = -Math.PI/2;
@@ -715,7 +723,7 @@ function renderTrend(){
 }
 
 function renderCharts(){ renderDonut(); renderTrend(); }
-renderCharts();
+</script>
 </script>
   <script>
   const SUPABASE_URL = 'https://owesdjbpvxnywnzxhjxu.supabase.co';
@@ -738,6 +746,8 @@ renderCharts();
       }
 
       const data = await response.json();
+      supabaseData = data;
+renderCharts();
 
       console.log('✅ SUPABASE CONECTADO');
       console.log('Datos recibidos:', data);
