@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food & Wine Festival · Evolución Diaria de KPIs · 1–14 Ago 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{ --font-ui: 'Manrope', -apple-system, sans-serif; --font-mono: 'JetBrains Mono', monospace; }
+[data-theme="navy"]{
+  --bg: #0a1428; --bg2: #0f1c38; --panel: #121f3f; --panel2: #16264a;
+  --border: #223460; --border-soft: #1a2a4d;
+  --text: #eef2fb; --text-dim: #9fb0d4; --text-faint: #6c7fa8;
+  --accent: #5ec8ff; --accent2: #7cf2c0; --accent-warm: #ffb454;
+  --amber: #f5a94e; --amber-bg: rgba(245,169,78,0.10); --amber-border: rgba(245,169,78,0.30);
+  --shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+[data-theme="light"]{
+  --bg: #f4f6fb; --bg2: #ffffff; --panel: #ffffff; --panel2: #f0f3f9;
+  --border: #dde3f0; --border-soft: #e8ecf5;
+  --text: #131a2c; --text-dim: #4c5877; --text-faint: #8894b3;
+  --accent: #1f79c9; --accent2: #0f9d6b; --accent-warm: #c9791f;
+  --amber: #b3730f; --amber-bg: rgba(201,121,31,0.08); --amber-border: rgba(201,121,31,0.28);
+  --shadow: 0 16px 40px rgba(20,30,60,0.10);
+}
+[data-theme="slate"]{
+  --bg: #1a1d23; --bg2: #21252d; --panel: #24282f; --panel2: #2b3039;
+  --border: #383e49; --border-soft: #2d323b;
+  --text: #eef0f3; --text-dim: #a4abb8; --text-faint: #717886;
+  --accent: #6fb8f0; --accent2: #7fd4a8; --accent-warm: #e0a865;
+  --amber: #e0a865; --amber-bg: rgba(224,168,101,0.10); --amber-border: rgba(224,168,101,0.28);
+  --shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background: var(--bg); color: var(--text); font-family: var(--font-ui); line-height:1.5; padding: 0 0 60px 0; transition: background .25s ease, color .25s ease;}
+.wrap{max-width:1000px; margin:0 auto; padding: 0 24px;}
+.mono{font-family: var(--font-mono);}
+
+.theme-switch{position:fixed; top:18px; right:18px; z-index:50; display:flex; gap:6px; background:var(--panel); border:1px solid var(--border); padding:5px; border-radius:12px; box-shadow: var(--shadow);}
+.theme-switch button{border:none; background:transparent; color:var(--text-dim); font-family:var(--font-ui); font-size:11.5px; font-weight:700; padding:7px 12px; border-radius:8px; cursor:pointer; letter-spacing:.03em;}
+.theme-switch button.active{background:var(--accent); color:var(--bg);}
+
+header{padding: 46px 0 30px 0; border-bottom:1px solid var(--border-soft);}
+.eyebrow{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:10px;}
+h1{font-size: 25px; font-weight:800; letter-spacing:-.01em; margin-bottom:8px;}
+.subtitle{color:var(--text-dim); font-size:13.5px; max-width:680px;}
+.meta-row{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap;}
+.meta-chip{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); display:flex; align-items:center; gap:7px;}
+.meta-chip b{color:var(--text-dim); font-weight:600;}
+
+section{padding: 34px 0; border-bottom:1px solid var(--border-soft);}
+section:last-of-type{border-bottom:none;}
+.sec-title{font-size:16.5px; font-weight:800; letter-spacing:-.01em; margin-bottom:6px;}
+.sec-sub{color:var(--text-faint); font-size:12.5px; margin-bottom:20px;}
+
+.kpi-strip{display:grid; grid-template-columns: repeat(4,1fr); gap:14px;}
+.kpi-card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px 17px;}
+.kpi-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--text-faint); font-weight:700; margin-bottom:9px;}
+.kpi-val{font-size:22px; font-weight:800; letter-spacing:-.02em; font-family:var(--font-mono);}
+.kpi-note{font-size:11px; color:var(--text-faint); margin-top:7px; line-height:1.4;}
+@media(max-width:800px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+
+.chart-card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:22px 24px; margin-bottom:18px;}
+.chart-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;}
+.chart-title{font-weight:700; font-size:14px;}
+.chart-total{font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint);}
+.chart-comment{margin-top:14px; padding:12px 14px; background:var(--panel2); border:1px solid var(--border-soft); border-left:3px solid var(--accent); border-radius:8px; font-size:12.5px; color:var(--text-dim); line-height:1.55;}
+.chart-comment b{color:var(--text);}
+.note-box{margin-top:14px; padding:11px 14px; background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:8px; font-size:12px; color:var(--text-dim); line-height:1.5;}
+
+table{width:100%; border-collapse:collapse; font-size:12.5px;}
+th{text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); font-weight:700; padding:9px 12px; border-bottom:1px solid var(--border);}
+td{padding:10px 12px; border-bottom:1px solid var(--border-soft); font-family:var(--font-mono); font-size:12px;}
+td.label{font-family:var(--font-ui); font-weight:600; font-size:12.5px;}
+tr:last-child td{border-bottom:none;}
+.table-wrap{background:var(--panel); border:1px solid var(--border); border-radius:14px; overflow:hidden; padding: 4px 0;}
+
+footer{padding: 28px 0 10px 0; font-size:11.5px; color:var(--text-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+svg text{font-family:var(--font-mono);}
+</style>
+</head>
+<body data-theme="navy">
+
+<div class="theme-switch">
+  <button data-theme="navy" class="active">Navy</button>
+  <button data-theme="light">Light</button>
+  <button data-theme="slate">Slate</button>
+</div>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Food & Wine Festival · Meta Ads</div>
+  <h1>Evolución diaria de KPIs — FW-FOODWINEFE-MX-SS-IN-PARTIDA-2607</h1>
+  <p class="subtitle">Performance día a día de la pauta en Meta Ads, con lectura de comportamiento por métrica. Google Ads no se incluye en la evolución diaria porque su reporte solo entrega totales del período (ver nota al final).</p>
+  <div class="meta-row">
+    <div class="meta-chip"><b>Período:</b> 1–14 agosto 2026 (14 días)</div>
+    <div class="meta-chip"><b>Canal:</b> Meta Ads (3 ad sets consolidados)</div>
+    <div class="meta-chip"><b>Moneda:</b> MXN</div>
+  </div>
+</header>
+
+<section>
+  <div class="kpi-strip">
+    <div class="kpi-card"><div class="kpi-label">Inversión total</div><div class="kpi-val">$9,292</div><div class="kpi-note">Promedio diario $663.73</div></div>
+    <div class="kpi-card"><div class="kpi-label">Impresiones</div><div class="kpi-val">177,446</div><div class="kpi-note">Reach acumulado 120,749*</div></div>
+    <div class="kpi-card"><div class="kpi-label">Clics / CTR</div><div class="kpi-val">5,734</div><div class="kpi-note">CTR promedio 3.23%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Compras / CPA</div><div class="kpi-val">16</div><div class="kpi-note">CPA promedio $580.76</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-title">Evolución diaria por KPI</div>
+  <div class="sec-sub">Cada gráfico incluye escala numérica en el eje, el valor exacto de cada día y una lectura de lo que muestra el dato — sin recomendaciones, solo performance.</div>
+
+  <!-- IMPRESIONES -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">Impresiones</span><span class="chart-total">Total: 177,446 · Prom. diario: 12,675</span></div>
+    <div id="chartImpr"></div>
+    <div class="chart-comment"><b>Lectura:</b> el volumen sube de forma sostenida entre el 4 y el 12 de agosto (de 9,815 a 18,446, el pico del período), y cae fuerte el 14 de agosto (5,480) por tratarse de un día parcial dentro de la ventana de corte del reporte.</div>
+  </div>
+
+  <!-- REACH -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">Reach</span><span class="chart-total">Total: 120,749* · Prom. diario: 8,625</span></div>
+    <div id="chartReach"></div>
+    <div class="chart-comment"><b>Lectura:</b> el Reach se mueve en paralelo a las impresiones durante todo el período (correlación visual directa), lo que indica que el crecimiento de impresiones vino de alcanzar más personas y no solo de mayor frecuencia sobre la misma audiencia.</div>
+    <div class="note-box">*Suma diaria sin deduplicar entre días — no representa alcance único del período completo.</div>
+  </div>
+
+  <!-- CLICS -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">Clics (todos)</span><span class="chart-total">Total: 5,734 · Prom. diario: 410</span></div>
+    <div id="chartClicks"></div>
+    <div class="chart-comment"><b>Lectura:</b> los clics muestran una tendencia descendente casi constante desde el 1 de agosto (617) hasta mediados de la segunda semana (258–356), incluso en los días donde las impresiones subían. Volumen y clics se desacoplan a partir del 6 de agosto.</div>
+  </div>
+
+  <!-- CTR -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">CTR</span><span class="chart-total">Promedio: 3.23%</span></div>
+    <div id="chartCTR"></div>
+    <div class="chart-comment"><b>Lectura:</b> el CTR cae de forma casi lineal de 6.29% (1 ago) a 2.22–2.5% (11–13 ago). Es la contracara directa del punto anterior: a medida que sube el volumen de impresiones, la tasa de interacción se diluye — patrón típico de saturación de audiencia o fatiga de creativo.</div>
+  </div>
+
+  <!-- TRAFICO A LANDING -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">Tráfico a landing (Link Clicks)</span><span class="chart-total">Total: 3,145 · Prom. diario: 225</span></div>
+    <div id="chartLinkClicks"></div>
+    <div class="chart-comment"><b>Lectura:</b> replica la misma caída que los clics totales: de 367 link clicks el 1 de agosto a un mínimo de 66 el 14 de agosto. El tráfico real hacia la landing se redujo a menos de la mitad entre la primera y la segunda semana.</div>
+    <div class="note-box">Meta no reporta "Page View" como columna directa en este export. Se usa Link Clicks (tráfico efectivo hacia la landing) como el KPI diario más cercano y completo. El GA4 "Page View" que aparece en el reporte de Google Ads (1,609 en el período) es una cifra de cuenta completa, sin desglose por día — no es comparable a esta serie.</div>
+  </div>
+
+  <!-- INVERSION -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">Inversión diaria</span><span class="chart-total">Total: $9,292.19 · Prom. diario: $663.73</span></div>
+    <div id="chartSpend"></div>
+    <div class="chart-comment"><b>Lectura:</b> el gasto se mantiene relativamente estable entre $511 y $903 por día, sin picos agresivos — el ritmo de inversión no acompañó proporcionalmente ni la caída de CTR ni las variaciones de compras, lo que sugiere pacing automático más que ajustes manuales diarios.</div>
+  </div>
+
+  <!-- COMPRAS -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">Compras (Purchases)</span><span class="chart-total">Total: 16 · Prom. diario: 1.14</span></div>
+    <div id="chartConv"></div>
+    <div class="chart-comment"><b>Lectura:</b> las compras son irregulares — 6 de los 14 días (1, 6, 8, 10, 11 y 14 de agosto) no registran ninguna. El mejor día es el 12 de agosto con 4 compras, que coincide con el pico de inversión y de impresiones, pero no con el pico de clics.</div>
+  </div>
+
+  <!-- CPA -->
+  <div class="chart-card">
+    <div class="chart-head"><span class="chart-title">CPA diario</span><span class="chart-total">Promedio período: $580.76</span></div>
+    <div id="chartCPA"></div>
+    <div class="chart-comment"><b>Lectura:</b> el CPA diario oscila fuerte entre $178.02 (3 ago) y $792.32 (4 ago) porque el volumen de compras por día es muy bajo (0 a 4). Con este tamaño de muestra, el CPA diario es ruidoso y no debería leerse como tendencia — el CPA ponderado del período completo ($580.76) es la referencia más estable.</div>
+  </div>
+
+</section>
+
+<!-- TABLE -->
+<section>
+  <div class="sec-title">Cifras exactas por día</div>
+  <div class="sec-sub">Fuente: Meta Ads Manager, export por ad set y día — consolidado a nivel campaña.</div>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Fecha</th><th>Impresiones</th><th>Reach*</th><th>Clics</th><th>CTR</th><th>Link Clicks</th><th>Inversión</th><th>Compras</th><th>CPA</th></tr>
+      <tr><td class="label">01 ago</td><td>9,815</td><td>7,251</td><td>617</td><td>6.29%</td><td>367</td><td>$511.45</td><td>0</td><td>—</td></tr>
+      <tr><td class="label">02 ago</td><td>11,202</td><td>7,446</td><td>566</td><td>5.05%</td><td>347</td><td>$628.67</td><td>1</td><td>$628.67</td></tr>
+      <tr><td class="label">03 ago</td><td>12,321</td><td>8,768</td><td>487</td><td>3.95%</td><td>277</td><td>$534.06</td><td>3</td><td>$178.02</td></tr>
+      <tr><td class="label">04 ago</td><td>17,033</td><td>11,777</td><td>664</td><td>3.90%</td><td>372</td><td>$792.32</td><td>1</td><td>$792.32</td></tr>
+      <tr><td class="label">05 ago</td><td>11,480</td><td>8,153</td><td>397</td><td>3.46%</td><td>198</td><td>$610.80</td><td>1</td><td>$610.80</td></tr>
+      <tr><td class="label">06 ago</td><td>10,088</td><td>6,676</td><td>286</td><td>2.84%</td><td>148</td><td>$631.43</td><td>0</td><td>—</td></tr>
+      <tr><td class="label">07 ago</td><td>9,080</td><td>5,769</td><td>258</td><td>2.84%</td><td>135</td><td>$574.54</td><td>2</td><td>$287.27</td></tr>
+      <tr><td class="label">08 ago</td><td>17,344</td><td>12,172</td><td>516</td><td>2.98%</td><td>275</td><td>$903.43</td><td>0</td><td>—</td></tr>
+      <tr><td class="label">09 ago</td><td>13,148</td><td>9,071</td><td>364</td><td>2.77%</td><td>191</td><td>$812.05</td><td>2</td><td>$406.03</td></tr>
+      <tr><td class="label">10 ago</td><td>12,715</td><td>8,507</td><td>314</td><td>2.47%</td><td>157</td><td>$676.38</td><td>0</td><td>—</td></tr>
+      <tr><td class="label">11 ago</td><td>14,246</td><td>9,549</td><td>356</td><td>2.50%</td><td>209</td><td>$704.02</td><td>0</td><td>—</td></tr>
+      <tr><td class="label">12 ago</td><td>18,446</td><td>12,133</td><td>444</td><td>2.41%</td><td>221</td><td>$848.76</td><td>4</td><td>$212.19</td></tr>
+      <tr><td class="label">13 ago</td><td>15,048</td><td>9,438</td><td>334</td><td>2.22%</td><td>182</td><td>$783.73</td><td>2</td><td>$391.86</td></tr>
+      <tr><td class="label">14 ago</td><td>5,480</td><td>4,039</td><td>131</td><td>2.39%</td><td>66</td><td>$280.55</td><td>0</td><td>—</td></tr>
+      <tr><td class="label" style="font-weight:800;">Total</td><td class="mono" style="font-weight:800;">177,446</td><td class="mono" style="font-weight:800;">120,749*</td><td class="mono" style="font-weight:800;">5,734</td><td class="mono" style="font-weight:800;">3.23%</td><td class="mono" style="font-weight:800;">3,145</td><td class="mono" style="font-weight:800;">$9,292.19</td><td class="mono" style="font-weight:800;">16</td><td class="mono" style="font-weight:800;">$580.76</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <span>6foot6&lt;&gt; · Food & Wine Festival · Evolución diaria de KPIs (Meta Ads)</span>
+  <span>Emitido: 14 agosto 2026 · Período: 1–14 agosto 2026</span>
+</footer>
+
+</div>
+
+<script>
+const themeBtns = document.querySelectorAll('.theme-switch button');
+function setTheme(t){
+  document.body.setAttribute('data-theme', t);
+  themeBtns.forEach(b=>b.classList.toggle('active', b.dataset.theme===t));
+  try{ localStorage.setItem('fw_theme_daily', t); }catch(e){}
+  renderAll();
+}
+themeBtns.forEach(b=>b.addEventListener('click', ()=>setTheme(b.dataset.theme)));
+let saved = 'navy';
+try{ saved = localStorage.getItem('fw_theme_daily') || 'navy'; }catch(e){}
+document.body.setAttribute('data-theme', saved);
+themeBtns.forEach(b=>b.classList.toggle('active', b.dataset.theme===saved));
+
+function cssVar(name){ return getComputedStyle(document.body).getPropertyValue(name).trim(); }
+
+const days      = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14'];
+const impr      = [9815,11202,12321,17033,11480,10088,9080,17344,13148,12715,14246,18446,15048,5480];
+const reach     = [7251,7446,8768,11777,8153,6676,5769,12172,9071,8507,9549,12133,9438,4039];
+const clicks    = [617,566,487,664,397,286,258,516,364,314,356,444,334,131];
+const ctr       = [6.29,5.05,3.95,3.90,3.46,2.84,2.84,2.98,2.77,2.47,2.50,2.41,2.22,2.39];
+const linkclk   = [367,347,277,372,198,148,135,275,191,157,209,221,182,66];
+const spend     = [511.45,628.67,534.06,792.32,610.80,631.43,574.54,903.43,812.05,676.38,704.02,848.76,783.73,280.55];
+const conv      = [0,1,3,1,1,0,2,0,2,0,0,4,2,0];
+const cpa       = [null,628.67,178.02,792.32,610.80,null,287.27,null,406.03,null,null,212.19,391.86,null];
+
+function fmt(v, kind){
+  if(v===null || v===undefined || isNaN(v)) return '—';
+  if(kind==='money') return '$'+v.toLocaleString('en-US',{minimumFractionDigits:0, maximumFractionDigits:0});
+  if(kind==='moneyDec') return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
+  if(kind==='pct') return v.toFixed(2)+'%';
+  if(kind==='int') return v>=1000 ? (v/1000).toFixed(1)+'k' : v.toString();
+  return v.toString();
+}
+function niceMax(v){
+  if(v<=0) return 1;
+  const mag = Math.pow(10, Math.floor(Math.log10(v)));
+  const norm = v/mag;
+  let step;
+  if(norm<=1) step=1; else if(norm<=2) step=2; else if(norm<=5) step=5; else step=10;
+  return step*mag;
+}
+
+function drawChart(elId, values, opts){
+  const el = document.getElementById(elId);
+  const color = opts.color || cssVar('--accent');
+  const kind = opts.kind || 'int';
+  const type = opts.type || 'bar'; // bar | line
+  const nullable = opts.nullable || false;
+
+  const W = 900, H = 240, padL = 52, padR = 16, padT = 24, padB = 30;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+
+  const validVals = values.filter(v=>v!==null && v!==undefined && !isNaN(v));
+  const rawMax = Math.max(...validVals) * 1.2;
+  const maxV = niceMax(rawMax);
+  const gridN = 4;
+
+  // gridlines + y labels
+  let grid = '';
+  for(let i=0;i<=gridN;i++){
+    const gv = maxV/gridN*i;
+    const gy = padT + plotH - (gv/maxV)*plotH;
+    grid += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W-padR}" y2="${gy.toFixed(1)}" stroke="${cssVar('--border-soft')}" stroke-width="1"/>`;
+    grid += `<text x="${padL-8}" y="${(gy+3.5).toFixed(1)}" text-anchor="end" font-size="10" fill="${cssVar('--text-faint')}">${fmt(gv,kind)}</text>`;
+  }
+
+  const step = plotW/values.length;
+
+  let bars = '', dots = '', linePath = '', areaPath = '', valueLabels = '', xlabels = '';
+  if(type==='bar'){
+    values.forEach((v,i)=>{
+      const x0 = padL + i*step;
+      const barW = step*0.55;
+      const x = x0 + (step-barW)/2;
+      if(v===null || isNaN(v)){
+        const y = padT + plotH - 2;
+        bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="2" rx="1" fill="${cssVar('--text-faint')}" opacity="0.4"/>`;
+        valueLabels += `<text x="${(x+barW/2).toFixed(1)}" y="${(y-6).toFixed(1)}" text-anchor="middle" font-size="9" fill="${cssVar('--text-faint')}">s/d</text>`;
+      } else {
+        const h = (v/maxV)*plotH;
+        const y = padT + plotH - h;
+        bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${color}" opacity="0.85"><title>${days[i]} ago: ${fmt(v,kind)}</title></rect>`;
+        valueLabels += `<text x="${(x+barW/2).toFixed(1)}" y="${(y-6).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="600" fill="${cssVar('--text')}">${fmt(v,kind)}</text>`;
+      }
+      const xc = x0 + step/2;
+      xlabels += `<text x="${xc.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="10" fill="${cssVar('--text-faint')}">${days[i]}</text>`;
+    });
+  } else {
+    // line chart — skip nulls by breaking segments
+    let segs = [];
+    let cur = [];
+    values.forEach((v,i)=>{
+      const xc = padL + i*step + step/2;
+      if(v===null || isNaN(v)){
+        if(cur.length){ segs.push(cur); cur=[]; }
+      } else {
+        const y = padT + plotH - (v/maxV)*plotH;
+        cur.push([xc,y,v,i]);
+      }
+    });
+    if(cur.length) segs.push(cur);
+    segs.forEach(seg=>{
+      const path = 'M ' + seg.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L ');
+      linePath += `<path d="${path}" fill="none" stroke="${color}" stroke-width="2.4"/>`;
+      const area = `M ${seg[0][0].toFixed(1)} ${(padT+plotH).toFixed(1)} L ` + seg.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L ') + ` L ${seg[seg.length-1][0].toFixed(1)} ${(padT+plotH).toFixed(1)} Z`;
+      areaPath += `<path d="${area}" fill="${color}" opacity="0.08"/>`;
+      seg.forEach(p=>{
+        dots += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5" fill="${color}"><title>${days[p[3]]} ago: ${fmt(p[2],kind)}</title></circle>`;
+        valueLabels += `<text x="${p[0].toFixed(1)}" y="${(p[1]-9).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="600" fill="${cssVar('--text')}">${fmt(p[2],kind)}</text>`;
+      });
+    });
+    values.forEach((v,i)=>{
+      const xc = padL + i*step + step/2;
+      xlabels += `<text x="${xc.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="10" fill="${cssVar('--text-faint')}">${days[i]}</text>`;
+    });
+  }
+
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}">
+    ${grid}
+    <line x1="${padL}" y1="${padT+plotH}" x2="${W-padR}" y2="${padT+plotH}" stroke="${cssVar('--border')}" stroke-width="1.2"/>
+    ${areaPath}${bars}${linePath}${dots}
+    ${valueLabels}
+    ${xlabels}
+  </svg>`;
+}
+
+function renderAll(){
+  drawChart('chartImpr', impr, {kind:'int', color: cssVar('--accent')});
+  drawChart('chartReach', reach, {kind:'int', color: cssVar('--accent')});
+  drawChart('chartClicks', clicks, {kind:'int', color: cssVar('--accent-warm')});
+  drawChart('chartCTR', ctr, {kind:'pct', color: cssVar('--accent2'), type:'line'});
+  drawChart('chartLinkClicks', linkclk, {kind:'int', color: cssVar('--accent-warm')});
+  drawChart('chartSpend', spend, {kind:'money', color: cssVar('--accent')});
+  drawChart('chartConv', conv, {kind:'int', color: cssVar('--accent2')});
+  drawChart('chartCPA', cpa, {kind:'moneyDec', color: cssVar('--accent-warm'), type:'line', nullable:true});
+}
+renderAll();
+</script>
+
+</body>
+</html>

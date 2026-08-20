@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food & Wine Festival · Reporte de Atribución & Funnel · 1–14 Ago 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-ui: 'Manrope', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+[data-theme="navy"]{
+  --bg: #0a1428; --bg2: #0f1c38; --panel: #121f3f; --panel2: #16264a;
+  --border: #223460; --border-soft: #1a2a4d;
+  --text: #eef2fb; --text-dim: #9fb0d4; --text-faint: #6c7fa8;
+  --accent: #5ec8ff; --accent2: #7cf2c0; --accent-warm: #ffb454;
+  --amber: #f5a94e; --amber-bg: rgba(245,169,78,0.12); --amber-border: rgba(245,169,78,0.35);
+  --blue: #5ec8ff; --blue-bg: rgba(94,200,255,0.10); --blue-border: rgba(94,200,255,0.32);
+  --meta-c: #7cf2c0; --google-c: #5ec8ff;
+  --shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+[data-theme="light"]{
+  --bg: #f4f6fb; --bg2: #ffffff; --panel: #ffffff; --panel2: #f0f3f9;
+  --border: #dde3f0; --border-soft: #e8ecf5;
+  --text: #131a2c; --text-dim: #4c5877; --text-faint: #8894b3;
+  --accent: #1f79c9; --accent2: #0f9d6b; --accent-warm: #c9791f;
+  --amber: #b3730f; --amber-bg: rgba(201,121,31,0.10); --amber-border: rgba(201,121,31,0.35);
+  --blue: #1f79c9; --blue-bg: rgba(31,121,201,0.08); --blue-border: rgba(31,121,201,0.28);
+  --meta-c: #0f9d6b; --google-c: #1f79c9;
+  --shadow: 0 16px 40px rgba(20,30,60,0.10);
+}
+[data-theme="slate"]{
+  --bg: #1a1d23; --bg2: #21252d; --panel: #24282f; --panel2: #2b3039;
+  --border: #383e49; --border-soft: #2d323b;
+  --text: #eef0f3; --text-dim: #a4abb8; --text-faint: #717886;
+  --accent: #6fb8f0; --accent2: #7fd4a8; --accent-warm: #e0a865;
+  --amber: #e0a865; --amber-bg: rgba(224,168,101,0.12); --amber-border: rgba(224,168,101,0.32);
+  --blue: #6fb8f0; --blue-bg: rgba(111,184,240,0.10); --blue-border: rgba(111,184,240,0.30);
+  --meta-c: #7fd4a8; --google-c: #6fb8f0;
+  --shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  background: var(--bg); color: var(--text); font-family: var(--font-ui);
+  line-height:1.5; padding: 0 0 60px 0; transition: background .25s ease, color .25s ease;
+}
+.wrap{max-width:1180px; margin:0 auto; padding: 0 24px;}
+.mono{font-family: var(--font-mono);}
+
+/* THEME SWITCHER */
+.theme-switch{position:fixed; top:18px; right:18px; z-index:50; display:flex; gap:6px; background:var(--panel); border:1px solid var(--border); padding:5px; border-radius:12px; box-shadow: var(--shadow);}
+.theme-switch button{border:none; background:transparent; color:var(--text-dim); font-family:var(--font-ui); font-size:11.5px; font-weight:700; padding:7px 12px; border-radius:8px; cursor:pointer; letter-spacing:.03em;}
+.theme-switch button.active{background:var(--accent); color:var(--bg);}
+
+/* HEADER */
+header{padding: 46px 0 30px 0; border-bottom:1px solid var(--border-soft);}
+.eyebrow{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:10px;}
+h1{font-size: 30px; font-weight:800; letter-spacing:-.01em; margin-bottom:8px;}
+.subtitle{color:var(--text-dim); font-size:14.5px; max-width:720px;}
+.meta-row{display:flex; gap:22px; margin-top:18px; flex-wrap:wrap;}
+.meta-chip{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); display:flex; align-items:center; gap:7px;}
+.meta-chip b{color:var(--text-dim); font-weight:600;}
+
+/* SECTIONS */
+section{padding: 40px 0; border-bottom:1px solid var(--border-soft);}
+section:last-of-type{border-bottom:none;}
+.sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:22px;}
+.sec-num{font-family:var(--font-mono); font-size:12px; color:var(--accent); font-weight:700; background:var(--blue-bg); border:1px solid var(--blue-border); padding:3px 9px; border-radius:20px;}
+.sec-title{font-size:20px; font-weight:800; letter-spacing:-.01em;}
+.sec-sub{color:var(--text-faint); font-size:13px; margin-top:-14px; margin-bottom:22px;}
+
+/* KPI STRIP */
+.kpi-strip{display:grid; grid-template-columns: repeat(5,1fr); gap:14px;}
+.kpi-card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:20px 18px; position:relative; overflow:hidden;}
+.kpi-card.hero{grid-column: span 1; background: linear-gradient(155deg, var(--panel2), var(--panel)); border-color: var(--accent2);}
+.kpi-label{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); font-weight:700; margin-bottom:10px;}
+.kpi-val{font-size:26px; font-weight:800; letter-spacing:-.02em; font-family:var(--font-mono);}
+.kpi-card.hero .kpi-val{color:var(--accent2); font-size:29px;}
+.kpi-note{font-size:11.5px; color:var(--text-faint); margin-top:8px; line-height:1.4;}
+.kpi-split{display:flex; gap:14px; margin-top:8px; font-size:11.5px; color:var(--text-dim);}
+.dot{width:7px; height:7px; border-radius:50%; display:inline-block; margin-right:5px;}
+
+@media(max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+
+/* FUNNEL */
+.funnel{display:flex; flex-direction:column; gap:0;}
+.funnel-step{display:grid; grid-template-columns: 46px 1fr; gap:18px; position:relative; padding-bottom: 26px;}
+.funnel-step:last-child{padding-bottom:0;}
+.funnel-num{width:46px; height:46px; border-radius:50%; background:var(--panel2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:15px; color:var(--accent); z-index:2;}
+.funnel-line{position:absolute; left:23px; top:46px; bottom:-26px; width:1px; background:var(--border);}
+.funnel-step:last-child .funnel-line{display:none;}
+.funnel-body{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px 22px;}
+.funnel-title{font-weight:700; font-size:15px; margin-bottom:4px;}
+.funnel-desc{color:var(--text-dim); font-size:13px; margin-bottom:14px;}
+.funnel-metrics{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:10px;}
+.fm{font-family:var(--font-mono);}
+.fm-val{font-size:19px; font-weight:700;}
+.fm-label{font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em; margin-top:2px;}
+.fuga{display:flex; gap:8px; align-items:flex-start; background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:10px; padding:10px 13px; font-size:12.5px; color:var(--text-dim); margin-top:6px;}
+.fuga b{color:var(--amber);}
+
+/* TABLES */
+table{width:100%; border-collapse:collapse; font-size:13px;}
+th{text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); font-weight:700; padding:9px 12px; border-bottom:1px solid var(--border);}
+td{padding:11px 12px; border-bottom:1px solid var(--border-soft); font-family:var(--font-mono); font-size:12.5px;}
+td.label{font-family:var(--font-ui); font-weight:600; font-size:13px;}
+tr:last-child td{border-bottom:none;}
+.table-wrap{background:var(--panel); border:1px solid var(--border); border-radius:14px; overflow:hidden; padding: 6px 0;}
+.pill{display:inline-block; padding:2px 9px; border-radius:20px; font-size:11px; font-weight:700; font-family:var(--font-mono);}
+.pill.good{background:var(--blue-bg); color:var(--blue); border:1px solid var(--blue-border);}
+.pill.warn{background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border);}
+.pill.flat{background:var(--panel2); color:var(--text-faint); border:1px solid var(--border);}
+
+/* GRID 2 COL */
+.grid2{display:grid; grid-template-columns: 1.1fr .9fr; gap:20px;}
+@media(max-width:900px){.grid2{grid-template-columns:1fr;}}
+.card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:22px;}
+
+/* CHANNEL MODULES */
+.channel-module{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:16px;}
+.channel-head{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+.channel-dot{width:11px; height:11px; border-radius:4px;}
+.channel-name{font-weight:800; font-size:15.5px;}
+.channel-budget{margin-left:auto; font-family:var(--font-mono); font-size:12px; color:var(--text-faint);}
+.mini-kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom: 18px;}
+.mini-kpi{background:var(--panel2); border:1px solid var(--border-soft); border-radius:10px; padding:12px 14px;}
+.mini-kpi .v{font-family:var(--font-mono); font-weight:700; font-size:17px;}
+.mini-kpi .l{font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em; margin-top:3px;}
+@media(max-width:900px){.mini-kpis{grid-template-columns:repeat(2,1fr);}}
+
+/* COMPARISON CARDS */
+.compare-row{display:grid; grid-template-columns: 1fr auto 1fr; gap:18px; align-items:center;}
+.compare-card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:20px;}
+.compare-vs{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); text-align:center;}
+.compare-metric{display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--border-soft); font-size:12.5px;}
+.compare-metric:last-child{border-bottom:none;}
+.compare-metric .v{font-family:var(--font-mono); font-weight:700;}
+@media(max-width:900px){.compare-row{grid-template-columns:1fr;}}
+
+.wow-strip{display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-top:16px;}
+.wow-card{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px;}
+.wow-card .l{font-size:10.5px; text-transform:uppercase; color:var(--text-faint); letter-spacing:.05em; margin-bottom:8px;}
+.wow-card .v{font-family:var(--font-mono); font-size:18px; font-weight:700;}
+@media(max-width:900px){.wow-strip{grid-template-columns:repeat(2,1fr);}}
+
+/* DIAGNOSTICS */
+.diag-item{display:grid; grid-template-columns: 1fr 1fr; gap:0; background:var(--panel); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:16px;}
+.diag-col{padding:20px 22px;}
+.diag-col.rec{border-right:1px solid var(--border-soft);}
+.diag-tag{display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:3px 10px; border-radius:20px; margin-bottom:10px;}
+.diag-tag.punto{background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border);}
+.diag-tag.hipotesis{background:var(--blue-bg); color:var(--blue); border:1px solid var(--blue-border);}
+.diag-title{font-weight:700; font-size:14px; margin-bottom:10px;}
+.diag-col ol{padding-left:18px; font-size:12.5px; color:var(--text-dim);}
+.diag-col ol li{margin-bottom:6px;}
+.diag-col p{font-size:12.5px; color:var(--text-dim); line-height:1.55;}
+@media(max-width:850px){.diag-item{grid-template-columns:1fr;} .diag-col.rec{border-right:none; border-bottom:1px solid var(--border-soft);}}
+
+/* ROADMAP */
+.roadmap{display:grid; grid-template-columns: repeat(4,1fr); gap:14px;}
+.week-card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px;}
+.week-card .wk{font-family:var(--font-mono); font-size:11px; color:var(--accent); font-weight:700; margin-bottom:4px;}
+.week-card .wk-date{font-size:11px; color:var(--text-faint); margin-bottom:12px;}
+.week-card ul{padding-left:16px; font-size:12px; color:var(--text-dim);}
+.week-card ul li{margin-bottom:7px; line-height:1.4;}
+@media(max-width:900px){.roadmap{grid-template-columns:repeat(2,1fr);}}
+
+/* FOOTER */
+footer{padding: 36px 0 10px 0;}
+.footer-grid{display:grid; grid-template-columns: 1fr 1fr; gap:24px; font-size:12px; color:var(--text-faint);}
+.footer-grid h4{font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-dim); margin-bottom:10px; font-weight:700;}
+.footer-grid ul{padding-left:16px; line-height:1.7;}
+.footer-note{margin-top:24px; padding-top:18px; border-top:1px solid var(--border-soft); font-size:11.5px; color:var(--text-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+@media(max-width:800px){.footer-grid{grid-template-columns:1fr;}}
+
+svg text{font-family:var(--font-mono);}
+</style>
+</head>
+<body data-theme="navy">
+
+<div class="theme-switch">
+  <button data-theme="navy" class="active">Navy</button>
+  <button data-theme="light">Light</button>
+  <button data-theme="slate">Slate</button>
+</div>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Food & Wine Festival · Google Ads + Meta Ads</div>
+  <h1>Reporte de Atribución & Funnel — Campaña FW-FOODWINEFE-MX-SS-IN-PARTIDA-2607</h1>
+  <p class="subtitle">Análisis consolidado momento a momento del recorrido de pauta multicanal, con foco en puntos de fuga, costo por conversión ponderado y plan de acción concreto.</p>
+  <div class="meta-row">
+    <div class="meta-chip"><b>Período:</b> 1–14 agosto 2026 (14 días)</div>
+    <div class="meta-chip"><b>Canales:</b> Google Ads (Performance Max) · Meta Ads (3 ad sets)</div>
+    <div class="meta-chip"><b>Moneda:</b> MXN</div>
+    <div class="meta-chip"><b>Emitido:</b> 14 agosto 2026</div>
+  </div>
+</header>
+
+<!-- 1. RESUMEN EJECUTIVO -->
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Resumen ejecutivo — Resultados primero</span></div>
+  <div class="kpi-strip">
+    <div class="kpi-card hero">
+      <div class="kpi-label">Conversiones totales (combinadas)</div>
+      <div class="kpi-val">17</div>
+      <div class="kpi-split">
+        <span><span class="dot" style="background:var(--meta-c)"></span>Meta: 16</span>
+        <span><span class="dot" style="background:var(--google-c)"></span>Google/GA4: 1</span>
+      </div>
+      <div class="kpi-note">Cifra sin deduplicar entre plataformas — ver nota en Footer (sección 9).</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Inversión total</div>
+      <div class="kpi-val">$11,704.99</div>
+      <div class="kpi-note">Meta $9,292.19 (79.4%) · Google $2,412.80 (20.6%)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CPL ponderado (blended)</div>
+      <div class="kpi-val">$688.53</div>
+      <div class="kpi-note">Inversión total ÷ conversiones totales combinadas (no deduplicadas)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CTR blended</div>
+      <div class="kpi-val">2.83%</div>
+      <div class="kpi-note">8,428 clics ÷ 297,640 impresiones (ambos canales)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Reach (Meta)</div>
+      <div class="kpi-val">120,749*</div>
+      <div class="kpi-note">*Suma diaria sin deduplicar. Google Ads no reporta Reach directamente — métrica aplica prioritariamente a Meta.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. FUNNEL CRONOLOGICO -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Tracking cronológico del funnel — Momento a momento</span></div>
+  <p class="sec-sub">Recorrido completo de la pauta desde el impacto hasta la conversión final, con puntos de fuga identificados en cada transición.</p>
+  <div class="funnel">
+
+    <div class="funnel-step">
+      <div class="funnel-num">1</div>
+      <div class="funnel-line"></div>
+      <div class="funnel-body">
+        <div class="funnel-title">Impacto</div>
+        <div class="funnel-desc">Alcance e impresiones generadas por ambos canales</div>
+        <div class="funnel-metrics">
+          <div class="fm"><div class="fm-val">297,640</div><div class="fm-label">Impresiones totales</div></div>
+          <div class="fm"><div class="fm-val">$39.33</div><div class="fm-label">CPM blended</div></div>
+          <div class="fm"><div class="fm-val">120,749</div><div class="fm-label">Reach (Meta, no dedup.)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="funnel-num">2</div>
+      <div class="funnel-line"></div>
+      <div class="funnel-body">
+        <div class="funnel-title">Captura</div>
+        <div class="funnel-desc">Clics generados e interés visual inicial</div>
+        <div class="funnel-metrics">
+          <div class="fm"><div class="fm-val">8,428</div><div class="fm-label">Clics totales</div></div>
+          <div class="fm"><div class="fm-val">2.83%</div><div class="fm-label">CTR blended</div></div>
+          <div class="fm"><div class="fm-val">14,080</div><div class="fm-label">Interacciones (Google, 11.71%)</div></div>
+        </div>
+        <div class="fuga"><span>⚠</span><div><b>Fuga 1 — Dispersión de CTR por audiencia:</b> el ad set RTG (retargeting) captura interés a un ritmo de solo 1.81% vs. 3.65% en PPT_LAL1%2%3% y 3.46% en "y". Punto de mejora a validar en sección 7.</div></div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="funnel-num">3</div>
+      <div class="funnel-line"></div>
+      <div class="funnel-body">
+        <div class="funnel-title">Tráfico</div>
+        <div class="funnel-desc">Visitas efectivas a landing (link clicks en Meta; clics en Google Ads)</div>
+        <div class="funnel-metrics">
+          <div class="fm"><div class="fm-val">3,145</div><div class="fm-label">Link clicks (Meta)</div></div>
+          <div class="fm"><div class="fm-val">2,694</div><div class="fm-label">Clics (Google Ads)</div></div>
+          <div class="fm"><div class="fm-val">1,609</div><div class="fm-label">Page Views registrados en GA4</div></div>
+        </div>
+        <div class="fuga"><span>⚠</span><div><b>Fuga 2 — Caída clics → link clicks (Meta):</b> de 5,734 clics totales, solo 3,145 (54.8%) son link clicks efectivos hacia la landing; el resto son clics de engagement (reacciones, expansión de imagen, etc.), no tráfico real al sitio.</div></div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="funnel-num">4</div>
+      <div class="funnel-line"></div>
+      <div class="funnel-body">
+        <div class="funnel-title">Intención</div>
+        <div class="funnel-desc">Adds to cart en Meta (proxy de intención de compra); sin evento equivalente disponible del lado de Google Ads en este reporte</div>
+        <div class="funnel-metrics">
+          <div class="fm"><div class="fm-val">53</div><div class="fm-label">Adds to cart (Meta)</div></div>
+          <div class="fm"><div class="fm-val">1.69%</div><div class="fm-label">Tasa sobre link clicks</div></div>
+          <div class="fm"><div class="fm-val">n/d</div><div class="fm-label">Apertura de formulario (Google) — a confirmar</div></div>
+        </div>
+        <div class="fuga"><span>⚠</span><div><b>Fuga 3 — Baja tasa de intención:</b> solo 1.69% de quienes llegan a la landing agregan al carrito. Hipótesis a confirmar: fricción en checkout de Boletia o message match entre creativo y landing. No se confirma causa técnica sin datos de comportamiento en sitio (heatmaps/GA4 Explorations).</div></div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="funnel-num">5</div>
+      <div class="funnel-body">
+        <div class="funnel-title">Conversión final</div>
+        <div class="funnel-desc">Leads/compras completadas y efectividad de costo</div>
+        <div class="funnel-metrics">
+          <div class="fm"><div class="fm-val">16</div><div class="fm-label">Purchases (Meta)</div></div>
+          <div class="fm"><div class="fm-val">1</div><div class="fm-label">Purchase vía GA4 (Google)</div></div>
+          <div class="fm"><div class="fm-val">30.19%</div><div class="fm-label">Tasa carrito → compra (Meta)</div></div>
+        </div>
+        <div class="fuga"><span>⚠</span><div><b>Fuga final — Google Ads:</b> $2,412.80 de inversión generaron solo 1 conversión importada desde GA4, mientras que las columnas nativas de "Conversiones" de Google Ads muestran 0 en todos los segmentos. Hipótesis a confirmar: desfase de importación del Key Event o ventana de atribución distinta a la de Meta — ver sección 7.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. DESGLOSE -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Desglose y distribución de campañas (multicanal)</span></div>
+  <div class="grid2">
+    <div class="card">
+      <div style="font-weight:700; font-size:14px; margin-bottom:14px;">Distribución de inversión por canal</div>
+      <div id="donutChart"></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700; font-size:14px; margin-bottom:14px;">Split por objetivo / ad set</div>
+      <table>
+        <tr><th>Segmento</th><th>Canal</th><th>% Inversión</th></tr>
+        <tr><td class="label">"y" (prospecting core)</td><td><span class="pill good">Meta</span></td><td class="mono">26.3%</td></tr>
+        <tr><td class="label">RTG (retargeting)</td><td><span class="pill good">Meta</span></td><td class="mono">26.0%</td></tr>
+        <tr><td class="label">PPT_LAL1%2%3%</td><td><span class="pill good">Meta</span></td><td class="mono">27.0%</td></tr>
+        <tr><td class="label">Performance Max</td><td><span class="pill flat">Google</span></td><td class="mono">20.6%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;" class="table-wrap">
+    <table>
+      <tr>
+        <th>Campaña / Ad set</th><th>Canal</th><th>Impresiones</th><th>Clics</th><th>Inversión</th><th>Conversiones</th><th>CPA</th>
+      </tr>
+      <tr><td class="label">FW-FOODWINEFE… — "y"</td><td><span class="pill good">Meta</span></td><td>70,864</td><td>2,455</td><td>$3,078.79</td><td>12</td><td>$256.57</td></tr>
+      <tr><td class="label">FW-FOODWINEFE… — RTG</td><td><span class="pill good">Meta</span></td><td>33,062</td><td>598</td><td>$3,048.11</td><td>4</td><td>$762.03</td></tr>
+      <tr><td class="label">FW-FOODWINEFE… — PPT_LAL1%2%3%</td><td><span class="pill good">Meta</span></td><td>73,520</td><td>2,681</td><td>$3,165.29</td><td>0</td><td><span class="pill warn">n/d</span></td></tr>
+      <tr><td class="label">FW-FOODWINEFE… (Performance Max)</td><td><span class="pill flat">Google</span></td><td>120,194</td><td>2,694</td><td>$2,412.80</td><td>1 (GA4)</td><td>$2,412.80</td></tr>
+      <tr><td class="label" style="font-weight:800;">Total combinado</td><td>—</td><td class="mono" style="font-weight:800;">297,640</td><td class="mono" style="font-weight:800;">8,428</td><td class="mono" style="font-weight:800;">$11,704.99</td><td class="mono" style="font-weight:800;">17</td><td class="mono" style="font-weight:800;">$688.53</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 4. RENDIMIENTO INDEPENDIENTE -->
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Rendimiento independiente por canal</span></div>
+
+  <div class="channel-module">
+    <div class="channel-head">
+      <div class="channel-dot" style="background:var(--google-c)"></div>
+      <div class="channel-name">Google Ads — Performance Max</div>
+      <div class="channel-budget">Presupuesto: $3,000 MXN · Gastado: $2,412.80 MXN</div>
+    </div>
+    <div class="mini-kpis">
+      <div class="mini-kpi"><div class="v">120,194</div><div class="l">Impresiones</div></div>
+      <div class="mini-kpi"><div class="v">2,694</div><div class="l">Clics</div></div>
+      <div class="mini-kpi"><div class="v">2.24%</div><div class="l">CTR</div></div>
+      <div class="mini-kpi"><div class="v">14,080</div><div class="l">Interacciones (11.71%)</div></div>
+      <div class="mini-kpi"><div class="v">10,842</div><div class="l">TrueView views (componente video)</div></div>
+      <div class="mini-kpi"><div class="v">1,609</div><div class="l">Page Views (GA4)</div></div>
+      <div class="mini-kpi"><div class="v">1</div><div class="l">Purchase (GA4 importado)</div></div>
+      <div class="mini-kpi"><div class="v">0</div><div class="l">Conversiones nativas ("Conv.")</div></div>
+    </div>
+    <div class="fuga"><span>ℹ</span><div><b>A confirmar:</b> el reporte no incluye desglose por sub-campaña de Búsqueda Branded (solo aparece Performance Max con integración GA4). Search impr. share (28.13%) y Click share (34.27%) figuran a nivel cuenta — validar composición de subtipos de campaña antes de usar esta cifra de forma aislada.</div></div>
+  </div>
+
+  <div class="channel-module">
+    <div class="channel-head">
+      <div class="channel-dot" style="background:var(--meta-c)"></div>
+      <div class="channel-name">Meta Ads — Lead / Prospecting / Retargeting</div>
+      <div class="channel-budget">Gastado: $9,292.19 MXN (aprox., derivado de CPM × impresiones)</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Ad set</th><th>Impr.</th><th>Reach</th><th>Clics</th><th>Link clicks</th><th>CTR</th><th>Inversión</th><th>Compras</th><th>CPA</th></tr>
+        <tr><td class="label">y (prospecting core)</td><td>70,864</td><td>54,722</td><td>2,455</td><td>1,318</td><td>3.46%</td><td>$3,078.79</td><td>12</td><td>$256.57</td></tr>
+        <tr><td class="label">RTG (retargeting)</td><td>33,062</td><td>9,422</td><td>598</td><td>451</td><td>1.81%</td><td>$3,048.11</td><td>4</td><td>$762.03</td></tr>
+        <tr><td class="label">PPT_LAL1%2%3% (lookalikes)</td><td>73,520</td><td>56,605</td><td>2,681</td><td>1,376</td><td>3.65%</td><td>$3,165.29</td><td>0</td><td>n/d</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 5. COMPARATIVA -->
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Comparativa de eficiencia</span></div>
+  <p class="sec-sub">Google Ads vs. Meta Ads</p>
+  <div class="compare-row">
+    <div class="compare-card">
+      <div class="channel-head" style="margin-bottom:12px;">
+        <div class="channel-dot" style="background:var(--google-c)"></div><div class="channel-name" style="font-size:13.5px;">Google Ads</div>
+      </div>
+      <div class="compare-metric"><span>Inversión</span><span class="v">$2,412.80</span></div>
+      <div class="compare-metric"><span>CTR</span><span class="v">2.24%</span></div>
+      <div class="compare-metric"><span>CPM</span><span class="v">$20.07</span></div>
+      <div class="compare-metric"><span>Conversiones</span><span class="v">1</span></div>
+      <div class="compare-metric"><span>CPA</span><span class="v">$2,412.80</span></div>
+    </div>
+    <div class="compare-vs">VS</div>
+    <div class="compare-card">
+      <div class="channel-head" style="margin-bottom:12px;">
+        <div class="channel-dot" style="background:var(--meta-c)"></div><div class="channel-name" style="font-size:13.5px;">Meta Ads</div>
+      </div>
+      <div class="compare-metric"><span>Inversión</span><span class="v">$9,292.19</span></div>
+      <div class="compare-metric"><span>CTR</span><span class="v">3.23%</span></div>
+      <div class="compare-metric"><span>CPM</span><span class="v">$52.36</span></div>
+      <div class="compare-metric"><span>Conversiones</span><span class="v">16</span></div>
+      <div class="compare-metric"><span>CPA</span><span class="v">$580.76</span></div>
+    </div>
+  </div>
+  <div class="fuga" style="margin-top:16px;"><span>💡</span><div><b>Insight de eficiencia relativa:</b> Meta Ads concentra el 94% de las conversiones registradas del período con una inversión 3.85x mayor que Google Ads, resultando en un CPA 4.15x más eficiente ($580.76 vs. $2,412.80). Punto de mejora: antes de reasignar presupuesto de Google a Meta, confirmar si el bajo volumen de conversiones en Google responde a un problema real de rendimiento o a una brecha de tracking/importación de eventos GA4 (ver Fuga final, sección 2).</div></div>
+
+  <p class="sec-sub" style="margin-top:30px;">Comparativa semana 1 (1–7 ago) vs. semana 2 (8–14 ago) dentro del período — Meta Ads</p>
+  <div class="wow-strip">
+    <div class="wow-card"><div class="l">Inversión</div><div class="v">$4,283 → $5,009 <span class="pill warn" style="margin-left:4px;">+16.9%</span></div></div>
+    <div class="wow-card"><div class="l">Clics</div><div class="v">3,275 → 2,459 <span class="pill warn" style="margin-left:4px;">−24.9%</span></div></div>
+    <div class="wow-card"><div class="l">CTR</div><div class="v">4.04% → 2.55% <span class="pill warn" style="margin-left:4px;">−36.9%</span></div></div>
+    <div class="wow-card"><div class="l">Conversiones</div><div class="v">8 → 8 <span class="pill flat" style="margin-left:4px;">0%</span></div></div>
+  </div>
+</section>
+
+<!-- 6. TENDENCIAS DIARIAS -->
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">Tendencias diarias y cifras históricas</span></div>
+  <p class="sec-sub">Evolución diaria de inversión vs. conversiones — Meta Ads (Google Ads solo reporta totales de período; no incluye desglose diario en el reporte disponible).</p>
+  <div class="card">
+    <div id="trendChart"></div>
+  </div>
+  <div class="table-wrap" style="margin-top:18px;">
+    <table>
+      <tr><th>Fecha</th><th>Impresiones</th><th>Clics</th><th>CTR</th><th>Inversión</th><th>Conversiones</th></tr>
+      <tr><td class="label">01 ago</td><td>9,815</td><td>617</td><td>6.29%</td><td>$511.45</td><td>0</td></tr>
+      <tr><td class="label">02 ago</td><td>11,202</td><td>566</td><td>5.05%</td><td>$628.67</td><td>1</td></tr>
+      <tr><td class="label">03 ago</td><td>12,321</td><td>487</td><td>3.95%</td><td>$534.06</td><td>3</td></tr>
+      <tr><td class="label">04 ago</td><td>17,033</td><td>664</td><td>3.90%</td><td>$792.32</td><td>1</td></tr>
+      <tr><td class="label">05 ago</td><td>11,480</td><td>397</td><td>3.46%</td><td>$610.80</td><td>1</td></tr>
+      <tr><td class="label">06 ago</td><td>10,088</td><td>286</td><td>2.84%</td><td>$631.43</td><td>0</td></tr>
+      <tr><td class="label">07 ago</td><td>9,080</td><td>258</td><td>2.84%</td><td>$574.54</td><td>2</td></tr>
+      <tr><td class="label">08 ago</td><td>17,344</td><td>516</td><td>2.98%</td><td>$903.43</td><td>0</td></tr>
+      <tr><td class="label">09 ago</td><td>13,148</td><td>364</td><td>2.77%</td><td>$812.05</td><td>2</td></tr>
+      <tr><td class="label">10 ago</td><td>12,715</td><td>314</td><td>2.47%</td><td>$676.38</td><td>0</td></tr>
+      <tr><td class="label">11 ago</td><td>14,246</td><td>356</td><td>2.50%</td><td>$704.02</td><td>0</td></tr>
+      <tr><td class="label">12 ago</td><td>18,446</td><td>444</td><td>2.41%</td><td>$848.76</td><td>4</td></tr>
+      <tr><td class="label">13 ago</td><td>15,048</td><td>334</td><td>2.22%</td><td>$783.73</td><td>2</td></tr>
+      <tr><td class="label">14 ago</td><td>5,480</td><td>131</td><td>2.39%</td><td>$280.55</td><td>0</td></tr>
+      <tr><td class="label" style="font-weight:800;">Total (14 días)</td><td class="mono" style="font-weight:800;">177,446</td><td class="mono" style="font-weight:800;">5,734</td><td class="mono" style="font-weight:800;">3.23%</td><td class="mono" style="font-weight:800;">$9,292.19</td><td class="mono" style="font-weight:800;">16</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 7. DIAGNOSTICO -->
+<section>
+  <div class="sec-head"><span class="sec-num">07</span><span class="sec-title">Diagnóstico & puntos de mejora</span></div>
+
+  <div class="diag-item">
+    <div class="diag-col rec">
+      <span class="diag-tag punto">Punto de mejora</span>
+      <div class="diag-title">Ad set PPT_LAL1%2%3% sin conversiones registradas</div>
+      <ol>
+        <li>Ventana de observación de 72h adicionales antes de pausar (evaluar corte al 17 ago si no hay compras nuevas).</li>
+        <li>Si a las 72h persiste en 0 compras, reasignar el 50% de su presupuesto diario hacia el ad set "y" (mejor CPA del período).</li>
+        <li>En paralelo, verificar en Meta Events Manager que el píxel/CAPI reciba el evento Purchase correctamente segmentado por ad set.</li>
+      </ol>
+    </div>
+    <div class="diag-col">
+      <span class="diag-tag hipotesis">Hipótesis a confirmar</span>
+      <p>El ad set invirtió $3,165.29 (27% del presupuesto de Meta) generando 73,520 impresiones, 2,681 clics y 12 adds to cart, pero 0 compras. La audiencia de lookalikes 1-2-3% suele tener menor intención de compra inmediata que la audiencia core "y"; sin embargo, no se descarta un problema de atribución específico de este ad set dado que sí registra adds to cart. Se recomienda no asumir causa hasta revisar el desglose de eventos por ad set en Events Manager.</p>
+    </div>
+  </div>
+
+  <div class="diag-item">
+    <div class="diag-col rec">
+      <span class="diag-tag punto">Punto de mejora</span>
+      <div class="diag-title">Google Ads: 0 conversiones nativas vs. 1 evento GA4 importado</div>
+      <ol>
+        <li>Confirmar en las próximas 48h que el evento GA4 "purchase" esté correctamente vinculado como conversión importada en Google Ads (no solo visible en GA4).</li>
+        <li>Revisar el estado de procesamiento del Key Event — eventos recién configurados pueden tardar hasta 24–48h en poblarse retroactivamente.</li>
+        <li>Mientras se confirma, mantener el presupuesto de Google Ads sin incrementos hasta validar trazabilidad completa.</li>
+      </ol>
+    </div>
+    <div class="diag-col">
+      <span class="diag-tag hipotesis">Hipótesis a confirmar</span>
+      <p>Las columnas nativas de "Conversiones (Comparable con la plataforma)" muestran 0 en todos los niveles del reporte, mientras que la fuente "Google Analytics (GA4)" sí registra 1 Purchase. Esto es consistente con un desfase de importación entre GA4 y Google Ads, no necesariamente con ausencia real de compras atribuibles a Google Ads. No se confirma como falla de tracking sin revisar el estado del Key Event en la interfaz de Google Ads.</p>
+    </div>
+  </div>
+
+  <div class="diag-item">
+    <div class="diag-col rec">
+      <span class="diag-tag punto">Punto de mejora</span>
+      <div class="diag-title">Caída de CTR semana 1 → semana 2 (Meta, −36.9%) con inversión creciente</div>
+      <ol>
+        <li>En las próximas 48h, refrescar los creativos del ad set "y" y PPT_LAL1%2%3% (mayor exposición acumulada).</li>
+        <li>Revisar frecuencia de exposición por ad set; si supera 3.5, activar rotación de creativo o pausa temporal de 24h.</li>
+        <li>Mantener el ritmo de inversión de semana 2 (no reducir) mientras se testean nuevos creativos, dado que las conversiones se mantuvieron estables (8 vs. 8).</li>
+      </ol>
+    </div>
+    <div class="diag-col">
+      <span class="diag-tag hipotesis">Hipótesis a confirmar</span>
+      <p>El CTR blended de Meta cayó de 4.04% a 2.55% entre semanas mientras la inversión subió 16.9% y las conversiones se mantuvieron planas. Es consistente con fatiga de creativo por exposición acumulada, aunque también podría deberse a expansión de audiencia hacia segmentos más fríos. Se recomienda confirmar vía frecuencia por ad set antes de atribuir la causa.</p>
+    </div>
+  </div>
+
+  <div class="diag-item">
+    <div class="diag-col rec">
+      <span class="diag-tag punto">Punto de mejora</span>
+      <div class="diag-title">CPM elevado en ad set RTG ($92.19, ~2.1x el resto)</div>
+      <ol>
+        <li>Evaluar en 48–72h si el pool de retargeting (Reach 9,422) es suficientemente grande para sostener el gasto actual sin saturarse.</li>
+        <li>Si la frecuencia supera 4–5, ampliar el pool sumando ventanas de retargeting de 14 y 30 días adicionales a la actual.</li>
+        <li>Mantener RTG activo — es el único segmento con ROAS aproximado positivo (2.68x) fuera del ad set "y".</li>
+      </ol>
+    </div>
+    <div class="diag-col">
+      <span class="diag-tag hipotesis">Hipótesis a confirmar</span>
+      <p>Un CPM de $92.19 frente a ~$43 en los otros dos ad sets es esperable en retargeting por el tamaño reducido de audiencia (9,422 de reach vs. 54,000+ en los otros), pero conviene confirmar que no se trate de solapamiento de audiencias entre RTG y "y" (competencia interna por el mismo público) antes de escalar más presupuesto hacia este segmento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. AGENDA & ROADMAP -->
+<section>
+  <div class="sec-head"><span class="sec-num">08</span><span class="sec-title">Agenda & roadmap de ejecución</span></div>
+  <div class="roadmap">
+    <div class="week-card">
+      <div class="wk">Semana 1</div>
+      <div class="wk-date">15–21 ago</div>
+      <ul>
+        <li>Confirmar estado de importación del Key Event GA4 → Google Ads</li>
+        <li>Verificar tracking de eventos por ad set en Meta Events Manager</li>
+        <li>Evaluar corte de PPT_LAL1%2%3% al día 17 si persiste en 0 compras</li>
+      </ul>
+    </div>
+    <div class="week-card">
+      <div class="wk">Semana 2</div>
+      <div class="wk-date">22–28 ago</div>
+      <ul>
+        <li>Refrescar creativos en "y" y PPT_LAL1%2%3%</li>
+        <li>Reasignar presupuesto liberado hacia "y" y/o RTG según resultado de semana 1</li>
+        <li>Revisar frecuencia y solapamiento de audiencia RTG vs. "y"</li>
+      </ul>
+    </div>
+    <div class="week-card">
+      <div class="wk">Semana 3</div>
+      <div class="wk-date">29 ago – 04 sep</div>
+      <ul>
+        <li>Medir impacto de reasignación presupuestaria en CPA blended</li>
+        <li>Confirmar si el desfase de conversiones de Google Ads se resolvió</li>
+        <li>Ampliar ventanas de audiencia de retargeting si frecuencia lo justifica</li>
+      </ul>
+    </div>
+    <div class="week-card">
+      <div class="wk">Semana 4</div>
+      <div class="wk-date">05–11 sep</div>
+      <ul>
+        <li>Consolidar reporte comparativo mes completo (agosto) vs. este período</li>
+        <li>Revisión conjunta con Pablo de hallazgos y decisiones de presupuesto</li>
+        <li>Definir criterios de escalado o cierre de campaña según calendario del festival</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Fuentes de datos</h4>
+      <ul>
+        <li>Google Ads — Reporte de campaña (PDF), fuentes "Website" y "Google Analytics (GA4)", 1–14 ago 2026</li>
+        <li>Meta Ads Manager — Export CSV por ad set y día, 1–14 ago 2026</li>
+      </ul>
+      <h4 style="margin-top:16px;">Métricas omitidas o sustituidas</h4>
+      <ul>
+        <li>ROAS de Google Ads: omitido — el reporte no devuelve valor de conversión/ingreso para esta campaña (todas las columnas "Conv. value/cost" en 0).</li>
+        <li>ROAS de Meta Ads: aproximado (6.75x), calculado a partir de "Results ROAS" reportado por fila × inversión estimada — no es una cifra financiera auditada.</li>
+        <li>Inversión de Meta: derivada de CPM × impresiones ÷ 1,000, ya que el export no incluye columna directa de "importe gastado".</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Aclaraciones sobre Reach</h4>
+      <ul>
+        <li>El Reach de Meta es una suma diaria (no deduplicada); el alcance único real del período es menor a la cifra mostrada.</li>
+        <li>Google Ads no reporta Reach directamente en este formato de exportación — la métrica de alcance aplica prioritariamente a Meta.</li>
+      </ul>
+      <h4 style="margin-top:16px;">Notas de atribución</h4>
+      <ul>
+        <li>Las 17 conversiones combinadas provienen de dos sistemas de atribución distintos (píxel/CAPI de Meta vs. evento GA4 importado a Google Ads) y no están deduplicadas entre sí.</li>
+        <li>Search impr. share y Click share reportados a nivel cuenta en Google Ads — confirmar composición de subtipos de campaña antes de usarlos de forma aislada.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note">
+    <span>6foot6&lt;&gt; · Food & Wine Festival · Dashboard de atribución multicanal</span>
+    <span>Emitido: 14 agosto 2026 · Período: 1–14 agosto 2026</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+// THEME SWITCHING
+const themeBtns = document.querySelectorAll('.theme-switch button');
+function setTheme(t){
+  document.body.setAttribute('data-theme', t);
+  themeBtns.forEach(b=>b.classList.toggle('active', b.dataset.theme===t));
+  try{ localStorage.setItem('fw_theme', t); }catch(e){}
+  renderCharts();
+}
+themeBtns.forEach(b=>b.addEventListener('click', ()=>setTheme(b.dataset.theme)));
+let saved = 'navy';
+try{ saved = localStorage.getItem('fw_theme') || 'navy'; }catch(e){}
+document.body.setAttribute('data-theme', saved);
+themeBtns.forEach(b=>b.classList.toggle('active', b.dataset.theme===saved));
+
+// CSS var helper
+function cssVar(name){ return getComputedStyle(document.body).getPropertyValue(name).trim(); }
+
+// DONUT CHART: spend split
+function renderDonut(){
+  const el = document.getElementById('donutChart');
+  const data = [
+    {label:'Meta Ads', value:9292.19, color: cssVar('--meta-c')},
+    {label:'Google Ads', value:2412.80, color: cssVar('--google-c')}
+  ];
+  const total = data.reduce((a,d)=>a+d.value,0);
+  const cx=110, cy=110, r=78, rInner=48;
+  let angle = -Math.PI/2;
+  let paths = '';
+  data.forEach(d=>{
+    const frac = d.value/total;
+    const a2 = angle + frac*2*Math.PI;
+    const x1 = cx + r*Math.cos(angle), y1 = cy + r*Math.sin(angle);
+    const x2 = cx + r*Math.cos(a2), y2 = cy + r*Math.sin(a2);
+    const xi1 = cx + rInner*Math.cos(a2), yi1 = cy + rInner*Math.sin(a2);
+    const xi2 = cx + rInner*Math.cos(angle), yi2 = cy + rInner*Math.sin(angle);
+    const large = frac > 0.5 ? 1 : 0;
+    paths += `<path d="M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} L ${xi1} ${yi1} A ${rInner} ${rInner} 0 ${large} 0 ${xi2} ${yi2} Z" fill="${d.color}" opacity="0.92"/>`;
+    angle = a2;
+  });
+  let legend = '';
+  data.forEach(d=>{
+    const pct = (d.value/total*100).toFixed(1);
+    legend += `<div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12.5px;color:var(--text-dim);">
+      <span style="width:10px;height:10px;border-radius:3px;background:${d.color};display:inline-block;"></span>
+      <span style="flex:1;">${d.label}</span>
+      <span class="mono" style="font-weight:700;color:var(--text);">$${d.value.toLocaleString('en-US',{minimumFractionDigits:2})} · ${pct}%</span>
+    </div>`;
+  });
+  el.innerHTML = `<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+    <svg width="220" height="220" viewBox="0 0 220 220">${paths}
+      <text x="110" y="105" text-anchor="middle" font-size="20" font-weight="800" fill="${cssVar('--text')}">$11,705</text>
+      <text x="110" y="124" text-anchor="middle" font-size="10" fill="${cssVar('--text-faint')}">TOTAL MXN</text>
+    </svg>
+    <div style="flex:1; min-width:160px;">${legend}</div>
+  </div>`;
+}
+
+// TREND CHART: daily spend (bars) + conversions (line)
+function renderTrend(){
+  const el = document.getElementById('trendChart');
+  const days = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14'];
+  const spend = [511.45,628.67,534.06,792.32,610.80,631.43,574.54,903.43,812.05,676.38,704.02,848.76,783.73,280.55];
+  const conv  = [0,1,3,1,1,0,2,0,2,0,0,4,2,0];
+  const W = 1080, H = 280, padL = 46, padR = 20, padT = 20, padB = 34;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const maxSpend = Math.max(...spend)*1.15;
+  const maxConv = Math.max(...conv)*1.3 || 1;
+  const barW = plotW/days.length*0.55;
+  const step = plotW/days.length;
+
+  let bars = '';
+  spend.forEach((v,i)=>{
+    const h = v/maxSpend*plotH;
+    const x = padL + i*step + (step-barW)/2;
+    const y = padT + plotH - h;
+    bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${cssVar('--accent')}" opacity="0.75"><title>Día ${days[i]}: $${v}</title></rect>`;
+  });
+
+  let linePts = conv.map((v,i)=>{
+    const x = padL + i*step + step/2;
+    const y = padT + plotH - (v/maxConv*plotH);
+    return [x,y];
+  });
+  let linePath = 'M ' + linePts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L ');
+  let dots = linePts.map((p,i)=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="${cssVar('--accent2')}"><title>Día ${days[i]}: ${conv[i]} conv.</title></circle>`).join('');
+
+  let xlabels = days.map((d,i)=>{
+    const x = padL + i*step + step/2;
+    return `<text x="${x.toFixed(1)}" y="${H-10}" text-anchor="middle" font-size="10" fill="${cssVar('--text-faint')}">${d}</text>`;
+  }).join('');
+
+  el.innerHTML = `
+  <div style="display:flex; gap:18px; margin-bottom:10px; font-size:12px; color:var(--text-dim);">
+    <span><span style="display:inline-block;width:10px;height:10px;background:${cssVar('--accent')};border-radius:2px;margin-right:6px;opacity:.75;"></span>Inversión diaria (MXN)</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:${cssVar('--accent2')};border-radius:50%;margin-right:6px;"></span>Conversiones</span>
+  </div>
+  <svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}">
+    <line x1="${padL}" y1="${padT+plotH}" x2="${W-padR}" y2="${padT+plotH}" stroke="${cssVar('--border')}" stroke-width="1"/>
+    ${bars}
+    <path d="${linePath}" fill="none" stroke="${cssVar('--accent2')}" stroke-width="2.5"/>
+    ${dots}
+    ${xlabels}
+  </svg>`;
+}
+
+function renderCharts(){ renderDonut(); renderTrend(); }
+renderCharts();
+</script>
+
+</body>
+</html>
